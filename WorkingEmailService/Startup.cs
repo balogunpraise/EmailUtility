@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WorkingEmailService.Extensions;
 using WorkingEmailService.Services;
 
 namespace WorkingEmailService
@@ -39,7 +40,7 @@ namespace WorkingEmailService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger)
         {
             if (env.IsDevelopment())
             {
@@ -47,6 +48,7 @@ namespace WorkingEmailService
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WorkingEmailService v1"));
             }
+            app.UseConfigureExceptionHandler(logger);
 
             app.UseHttpsRedirection();
 
